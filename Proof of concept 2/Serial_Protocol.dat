@@ -1,0 +1,19 @@
+Communication protocol
+
+Sender: ESP8266
+Reciever: Arduino UNO
+
+Maximum lenght of message: 32
+End character: #
+
+Communication rules
+The ESP8266 will send a byte of data to the Arduino which will and with a # symbol.
+The Arduino will send a ACK back if the message is recived correctly and a NACK if the message is to long.
+
+Check for connection
+The Arduino has a timer to check if there is still a connection with the ESP8266, therefore the Arduino will send out a SYN over the serial port.
+If the Arduino does get an ACK back it will send back connected else the Arduino will send back connection lost.
+
+Byte options
+
+the last places of the byte will show which option is chosen.
