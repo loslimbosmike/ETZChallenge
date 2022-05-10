@@ -1,14 +1,16 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 
-#define ENDCHAR '#'
+#define startChar (';')
+#define endChar ('#')
+#define buffLeng 32
 
 const char *ssid = "ESP8266_LED_Strip_AP";
 const char *pwd = "NaomiLove2011";
 
 ESP8266WebServer server(80);
 
-char *page = "<!DOCTYPE html> <html><head><meta name =\"viewport\"content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"data:,\"><style>html{font-family:Helvetica;display:inline-block;margin:0pxauto;text-align:center;}.button{background-color:#195B6A;border:none;color:white;padding:16px40px;text-decoration:none;font-size:30px;margin:2px;cursor:pointer;}</style></head><body><h1>Control LED strip</h1><p>Wave</p><p><a href =\"/Wave\"><button class=\"button\">Toggle wave</button></a></p><p>Flash</p><p><a href =\"/Flash\"><button class=\"button\">Toggle Flash</button></a></p><p>Red</p><p><a href =\"/Red\"><button class=\"button\">Toggle Red</button></a></p><p>Green</p><p><a href =\"/Green\"><button class=\"button\">Toggle Green</button></a></p><p>Blue</p><p><a href =\"/Blue\"><button class=\"button\">Toggle Blue</button></a></p><p>Even</p><p><a href =\"/Even\"><button class=\"button\">Toggle Even</button></a></p><p>Odd</p><p><a href =\"/Odd\"><button class=\"button\">Toggle Odd</button></a></p><p>None</p><p><a href =\"/None\"><button class=\"button\">Toggle None</button></a></p></body></html> ";
+char *page = "<!DOCTYPE html><html><head><meta name=\"viewport\"content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"data:,\"><style>html {font-family: Helvetica;display: inline-block;margin: 0pxauto;text-align: center;}.button {background-color: #195B6A;border: none;color: white;padding: 16px40px;text-decoration: none;font-size: 30px;margin: 2px;cursor: pointer;}</style></head><body><h1>Control LED strip</h1><p>Love</p><p><a href=\"/Love\"><button class=\"button\">Toggle Love</button></a></p><p>Everything is good</p><p><a href=\"/Good\"><button class=\"button\">Toggle Good</button></a></p><p>Wink</p><p><a href=\"/Wink\"><button class=\"button\">Toggle Wink</button></a></p><p>Sleep</p><p><a href=\"/Sleep\"><button class=\"button\">Toggle Sleep</button></a></p><p>Morning</p><p><a href=\"/Morning\"><button class=\"button\">Toggle Morning</button></a></p><p>Paw</p><p><a href=\"/Paw\"><button class=\"button\">Toggle Paw</button></a></p><p>Candle light</p><p><a href=\"/Candlelight\"><button class=\"button\">Toggle Candle light</button></a></p></body></html>";
 char cmd;
 
 void setup()
@@ -26,14 +28,13 @@ void setup()
     Serial.println(IP);
 
     server.on("/", HTTP_GET, handleRoot);
-    server.on("/Wave", HTTP_GET, handleWave);
-    server.on("/Flash", HTTP_GET, handleFlash);
-    server.on("/Red", HTTP_GET, handleRed);
-    server.on("/Green", HTTP_GET, handleGreen);
-    server.on("/Blue", HTTP_GET, handleBlue);
-    server.on("/Even", HTTP_GET, handleEven);
-    server.on("/Odd", HTTP_GET, handleOdd);
-    server.on("/None", HTTP_GET, handleNone);
+    server.on("/Love", HTTP_GET, handleLove);
+    server.on("/Good", HTTP_GET, handleGood);
+    server.on("/Wink", HTTP_GET, handleWink);
+    server.on("/Sleep", HTTP_GET, handleSleep);
+    server.on("/Morning", HTTP_GET, handleMorning);
+    server.on("/Paw", HTTP_GET, handlePaw);
+    server.on("/Candlelight", HTTP_GET, handleCandlelight);
     server.onNotFound(handleNotFound);
 
     server.begin();
@@ -48,58 +49,51 @@ void handleRoot()
 {
     server.send(200, "text/html", page);
 }
-void handleWave()
+void handleLove()
 {
     cmd = 0;
     toggleLED(cmd);
     server.sendHeader("Location", "/");
     server.send(303);
 }
-void handleFlash()
+void handleGood()
 {
     cmd = 1;
     toggleLED(cmd);
     server.sendHeader("Location", "/");
     server.send(303);
 }
-void handleRed()
+void handleWink()
 {
     cmd = 2;
     toggleLED(cmd);
     server.sendHeader("Location", "/");
     server.send(303);
 }
-void handleGreen()
+void handleSleep()
 {
     cmd = 3;
     toggleLED(cmd);
     server.sendHeader("Location", "/");
     server.send(303);
 }
-void handleBlue()
+void handleMorning()
 {
     cmd = 4;
     toggleLED(cmd);
     server.sendHeader("Location", "/");
     server.send(303);
 }
-void handleEven()
+void handlePaw()
 {
     cmd = 5;
     toggleLED(cmd);
     server.sendHeader("Location", "/");
     server.send(303);
 }
-void handleOdd()
+void handleCandlelight()
 {
     cmd = 6;
-    toggleLED(cmd);
-    server.sendHeader("Location", "/");
-    server.send(303);
-}
-void handleNone()
-{
-    cmd = 7;
     toggleLED(cmd);
     server.sendHeader("Location", "/");
     server.send(303);
