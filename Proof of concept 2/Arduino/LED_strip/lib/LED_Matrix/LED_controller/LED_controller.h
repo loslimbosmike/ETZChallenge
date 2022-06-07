@@ -19,5 +19,5 @@ public:
     void SetLed(int msg);
     void TurnOff(bool btnState);
 };
-
+ 
 #endif
